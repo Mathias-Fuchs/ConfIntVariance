@@ -2,50 +2,49 @@
 \alias{g}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
+  varwci
 %%  ~~function to do ... ~~
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+  Surround the univariate variance estimator of the function var with a
+  confidence interval, not assuming normality
 }
 \usage{
-g()
+varwci(s)
 }
 %- maybe also 'usage' for other objects documented here.
-\details{
-%%  ~~ If necessary, more details than the description above ~~
-}
+
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
+Returns a vector with two entries: the lower and the upper bound of the
+confidence interval.
 }
+
 \references{
-%% ~put references to the literature/web site here ~
+www.mathiasfuchs.de/b3.html
 }
+
 \author{
-%%  ~~who you are~~
+Mathias Fuchs
 }
+
 \note{
-%%  ~~further notes~~
+The underlying theory is that of U-statistics
 }
 
-%% ~Make other sections like Warning with \section{Warning }{....} ~
-
-\seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
+\section{Warning }{
+On very small sample sizes, the result is NA because there is
+insufficient information on the variance estimation
 }
+
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
+# throw a dice 100 times
+s <- sample(6, 100, replace=TRUE)
+# the standard point estimator for the variance
+print(var(s))
 
-## The function is currently defined as
-function () 
-42
+# contains the true value 2.9166 with a probability of 95 percent.
+print(varwci(s))
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }% use one of  RShowDoc("KEYWORDS")
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+
+\keyword{variance estimation}
+\keyword{confidence interval}
