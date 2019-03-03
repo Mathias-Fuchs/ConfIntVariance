@@ -1,0 +1,9 @@
+Package: confIntVariance
+Type: Package		
+Title: ConfIntVariance	
+Version: 1.0		
+Date: 2019-03-01
+Author: Mathias Fuchs
+Maintainer: <mathias@mathiasfuchs.de>
+Description: Computes the sample variance of a univariate sample with a confidence interval
+License: GPL3
