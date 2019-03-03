@@ -15,7 +15,7 @@ varianceOfSampleVariance <- function(x) {
     v <- var(x)
     p1 <- productsOfDisjointTuples(x)
     p2 <- productsOfDisjointTuples(x^2)
-    var(x)^2 - (p2[2] / choose(n, 2) - 4/n/(n-1)/(n-2)*(p1[3]*sum(x) - 4 * p1[4]) + p1[4]/choose(n, 4))
+    var(x)^2 - p2[2] / choose(n, 2) + 4/n/(n-1)/(n-2)*(p1[3]*sum(x) - 4 * p1[4]) - p1[4]/choose(n, 4)
 }
 
                                         # the confidence interval for the variance
@@ -25,13 +25,16 @@ varwci <- function(x, conf.level=0.95) {
     v <- var(x)
     varsv <- varianceOfSampleVariance(x)
     if (varsv < 0) {
-        warning("Sample size too small for estimation of the variance of the sample variance".)
+        warning("Sample size too small for estimation of the variance of the sample variance")
         return(c(NA, NA))
     }
     c(v-t*sqrt(varsv), v + t*sqrt(varsv))
 }
 
-# example: throwing a dice
+##
+## Example: throwing a dice
+## 
+
                                         # True quantities that do not depend on n
 trueMeanOfDice <- mean(1:6)
 trueVarianceOfDice <- mean((1:6)^2) - trueMeanOfDice^2
@@ -42,11 +45,13 @@ trueFourthCentralMomentOfDice <- mean(((1:6)-trueMeanOfDice)^4)
 trueVarianceOfSampleVarianceOfDice <- function(n) 
 (trueFourthCentralMomentOfDice - trueVarianceOfDice^2 * (n-3)/(n-1))/n
 
+##
+## Simulation study: compute the coverage probability of
+## the confidence interval by computing the probability
+## that it contains the true value.
+## We want that probability to be equal to the confidence level 0.95, not more and not less. (If it was higher, the test would be too conservative).
+##
 
-                                        # simulation study: compute the coverage probability of
-                                        # the confidence interval by computing the probability
-                                        # that it contains the true value
-                                        # We want that probability to be equal to the confidence level 0.95, not more and not less. (If it was higher, the test would be too conservative).
 
                                         # sample size
 n <- 100
@@ -57,8 +62,10 @@ for (i in 1:N) {
     if (i %% 1e3 == 0) print(i)
                                         # throw a dice n times
     x <- sample(6, n, replace=TRUE)
+                                        # compute our confidence interval
     ci <- varwci(x)
                                         # did the confidence interval contain the correct value?
     trueValueCovered[i] <- (trueVarianceOfDice > ci[1] && trueVarianceOfDice < ci[2])
 }
+                                        # should be close to 0.95
 print(mean(trueValueCovered))
