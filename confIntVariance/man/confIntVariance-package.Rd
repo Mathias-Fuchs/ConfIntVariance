@@ -1,24 +1,24 @@
-\name{confIntVariance-package}
-\alias{confIntVariance-package}
-\alias{confIntVariance}
+\name{ConfIntVariance-package}
+\alias{ConfIntVariance-package}
+\alias{ConfIntVariance}
 \docType{package}
 \title{
-\packageTitle{confIntVariance}
+\packageTitle{ConfIntVariance}
 }
 \description{
-\packageDescription{confIntVariance}
+\packageDescription{ConfIntVariance}
 }
 \details{
-
 The DESCRIPTION file:
-\packageDESCRIPTION{confIntVariance}
-\packageIndices{confIntVariance}
+\packageDESCRIPTION{ConfIntVariance}
+\packageIndices{ConfIntVariance}
 A package providing one function varwci which is short for
 "variance with confidence interval."
 }
+
 \author{
-\packageAuthor{Mathias Fuchs}
-Maintainer: \packageMaintainer{Mathias Fuchs}
+\packageAuthor{ConfIntVariance}
+Maintainer: \packageMaintainer{ConfIntVariance}
 }
 \references{
   www.mathiasfuchs.de/b3.html
@@ -32,8 +32,6 @@ Maintainer: \packageMaintainer{Mathias Fuchs}
 
                                         # True quantities that do not depend on n
 trueMeanOfDice <- mean(1:6)
-
-
 
 
                                         # The true variance of the dice
@@ -53,16 +51,13 @@ trueVarianceOfSampleVarianceOfDice <- function(n)
 ## We want that probability to be equal to the confidence level 0.95, not more and not less. (If it was higher, the test would be too conservative).
 ##
 
-
-                                        # sample size
-n <- 100
                                         # number of times we draw a sample and compute a confidence interval
 N <- 1e4
 trueValueCovered <- rep(NA, N)
 for (i in 1:N) {
-    if (i %% 1e3 == 0) print(i)
-                                        # throw a dice n times
-    x <- sample(6, n, replace=TRUE)
+    if (i \%\% 1e3 == 0) print(i)
+                                        # throw a dice 100 times
+    x <- sample(6, 100, replace=TRUE)
                                         # compute our confidence interval
     ci <- varwci(x)
                                         # We know that the true variance of the dice is 91/6 - 49/4 = 2.916666...

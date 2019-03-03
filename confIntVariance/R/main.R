@@ -13,6 +13,7 @@ productsOfDisjointTuples <- function(s) {
 
 varianceOfSampleVariance <- function(x) {
     v <- var(x)
+    n <- length(x)
     p1 <- productsOfDisjointTuples(x)
     p2 <- productsOfDisjointTuples(x^2)
     var(x)^2 - p2[2] / choose(n, 2) + 4/n/(n-1)/(n-2)*(p1[3]*sum(x) - 4 * p1[4]) - p1[4]/choose(n, 4)

@@ -1,18 +1,22 @@
-\name{g}
-\alias{g}
-%- Also NEED an '\alias' for EACH other topic documented here.
+\name{varwci}
+\alias{varwci}
 \title{
   varwci
-%%  ~~function to do ... ~~
 }
 \description{
   Surround the univariate variance estimator of the function var with a
   confidence interval, not assuming normality
 }
 \usage{
-varwci(s)
+varwci(x, conf.level=0.95)
 }
-%- maybe also 'usage' for other objects documented here.
+\arguments{
+  \item{x}{A one-dimensional numeric vector}
+
+  \item{conf.level}{The confidence level for the confidence
+    interval. Defaults to 0.95}
+}
+
 
 \value{
 Returns a vector with two entries: the lower and the upper bound of the
