@@ -4,5 +4,12 @@ An R package providing one function varwci ("variance with confidence interval")
 The validity of the confidence interval is confirmed by a coverage probability simulation study given in the examples in the documentation.
 
 # Installation
-Download the relase tar.gz file and install with install.packages("ConfIntVariance_1.0.tar.gz")
+Download the relase file ConfIntVariance_1.0.tar.gz from 
+
+[https://github.com/Mathias-Fuchs/ConfIntVariance/releases/tag/v1.0](https://github.com/Mathias-Fuchs/ConfIntVariance/releases/tag/v1.0)
+
+and install with install.packages("ConfIntVariance_1.0.tar.gz")
+
+# Documentation
+In R, call the help with ?varwci
 
