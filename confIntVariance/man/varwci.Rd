@@ -12,19 +12,23 @@ varwci(x, conf.level=0.95)
 }
 \arguments{
   \item{x}{A one-dimensional numeric vector}
-
   \item{conf.level}{The confidence level for the confidence
     interval. Defaults to 0.95}
 }
 
 
 \value{
-Returns a vector with two entries: the lower and the upper bound of the
-confidence interval.
+  Returns a vector with two entries: the lower and the upper bound of the
+  confidence interval, and the following attributes:
+  \describe{
+    \item{point.estimator}{The usual sample variance at the center of the interval}
+    \item{conf.level}{The confidence level used}
+    \item{var.SampleVariance}{The estimated variance of the sample variance}
+  }
 }
 
 \references{
-www.mathiasfuchs.de/b3.html
+  http://dx.doi.org/10.1080/15598608.2016.1158675 and https://mathiasfuchs.de/b3.html
 }
 
 \author{
@@ -32,12 +36,11 @@ Mathias Fuchs
 }
 
 \note{
-The underlying theory is that of U-statistics
+The underlying theory is that of U-statistics. See Hoeffding 1948.
 }
 
 \section{Warning }{
-On very small sample sizes, the result is NA because there is
-insufficient information on the variance estimation
+On very small sample sizes, the result is NA because there is insufficient information on the variance estimation
 }
 
 \examples{
@@ -63,8 +66,6 @@ trueMeanOfDice <- mean(1:6)
 trueVarianceOfDice <- mean((1:6)^2) - trueMeanOfDice^2
 
 ## see package description for more details
-
-
                                         # number of times we draw a sample and compute a confidence interval
 N <- 1e4
 trueValueCovered <- rep(NA, N)

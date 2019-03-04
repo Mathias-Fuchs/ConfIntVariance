@@ -24,16 +24,23 @@ varwci <- function(x, conf.level=0.95) {
     if (is.data.frame(x)) {
         stopifnot(dim(x)[2] == 1)
         x <- as.numeric(data.matrix(as.vector(x)))
-    }
-    else stopifnot(is.atomic(x))
+    } else {stopifnot(is.atomic(x))}
+    x <- as.vector(x)
     n <- length(x)
     stopifnot(n>=4)
-    t <- qt((1+conf.level)/2, df=n-1)
-    v <- var(x)
     varsv <- varianceOfSampleVariance(x)
     if (varsv < 0) {
         warning("Sample size too small for estimation of the variance of the sample variance")
-        return(c(NA, NA))
+        r <- c(NA, NA)
+    } else {
+        t <- qt((1+conf.level)/2, df=n-1)
+        v <- var(x)
+        r <- c(v-t*sqrt(varsv), v + t*sqrt(varsv))
     }
-    c(v-t*sqrt(varsv), v + t*sqrt(varsv))
+    attributes(r) <- list(
+        point.estimator=v,
+        conf.level=conf.level,
+        var.SampleVariance=max(0, varsv)
+    )
+    r
 }
