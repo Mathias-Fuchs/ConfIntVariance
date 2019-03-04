@@ -6,8 +6,7 @@ The validity of the confidence interval is confirmed by a coverage probability s
 # How does it work?
 It works by implementing an unbiased estimator of the variance of the sample variance, and then setting up the standard studentized confidence interval using the square of that unbiased estimator. So far, the strategy is the same as the one used to obtain the confidence interval for the mean, as it is implemented in the t.test function in R, for instance.
 
-There exists a closed form for the variance of this estimator but it involves the square of the underlying distribution's variance. 
-The difficulty is to estimate that square of the variance. There is a U-statistic estimator for it but a naive implementation would be of complexity O(n^4) where n is the sample size which is prohibitively costly. In this package, we solve the problem by reducing the computation to complexity O(n) using a dynamic programming.
+There exists a closed form for the variance of the sample variance but it involves the square of the underlying distribution's variance. The difficulty is to estimate that square of the variance. There is a U-statistic estimator for it but a naive implementation would be of complexity O(n^4) where n is the sample size which is prohibitively costly. In this package, we solve the problem by reducing the computation to complexity O(n) using a dynamic programming approach. See [https://mathiasfuchs.de/b3.html](this blog post) for a leisurely overview.
 
 # Related work
 There are implementations of confidence intervals but they all suffer from a drawback, either
@@ -23,6 +22,7 @@ The underlying U-statistics variance estimator is a special case of the one unde
 One can easily verify the validity of the confidence interval by choosing a population aka distribution (for instance, a dice) computing the true variance either theoretically or by taking the sample variance of a very large sample (with n a few hundred millions), drawing many samples (all of the same size or not), and checking that the confidence interval covers the true value in about 95% of all cases. For instance, in the dice example, the true variance is 35 / 12 = 2.91666, and the following code confirms the validity:
 
 ```R
+require(ConfIntVariance)
 N <- 1e4
 trueValueCovered <- rep(NA, N)
 for (i in 1:N) {
@@ -33,7 +33,7 @@ for (i in 1:N) {
     ci <- varwci(x)
                                         # We know that the true variance of the dice is 35/12 = 2.916666...
                                         # Record the boolean whether the confidence interval contains the correct value
-    trueValueCovered[i] <- (trueVarianceOfDice > ci[1] && trueVarianceOfDice < ci[2])
+    trueValueCovered[i] <- (35/12 > ci[1] && 35/12 < ci[2])
 }
 
                                         # Result of simulation study: should be close to 0.95
