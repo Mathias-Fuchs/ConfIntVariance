@@ -6,12 +6,13 @@ The validity of the confidence interval is confirmed by a coverage probability s
 # How does it work?
 It works by implementing an unbiased estimator of the variance of the sample variance, and then setting up the standard studentized confidence interval using the square of that unbiased estimator. So far, the strategy is the same as the one used to obtain the confidence interval for the mean, as it is implemented in the t.test function in R, for instance.
 
-There exists a closed form for the variance of the sample variance but it involves the square of the underlying distribution's variance. The difficulty is to estimate that square of the variance. There is a U-statistic estimator for it but a naive implementation would be of complexity O(n^4) where n is the sample size which is prohibitively costly. In this package, we solve the problem by reducing the computation to complexity O(n) using a dynamic programming approach. See [https://mathiasfuchs.de/b3.html](this blog post) for a leisurely overview.
+There exists a closed form for the variance of the sample variance but it involves the square of the underlying distribution's variance. The difficulty is to estimate that square of the variance. There is a U-statistic estimator for it but a naive implementation would be of complexity O(n^4) where n is the sample size which is prohibitively costly. In this package, we solve the problem by reducing the computation to complexity O(n) using a dynamic programming approach. See [https://mathiasfuchs.de/b3.html](this blog post) for a leisurely overview of the derivation of how to estimate the variance of the sample variance.
 
 # Related work
 There are implementations of confidence intervals but they all suffer from a drawback, either
 * they assume normality of the underlying distribution, basically replacing the fourth moment with a known value.
 * or they use heuristics such as bootstrapping etc., which are only approximately valid.
+* or they cannot deal with ties in the data.
 
 Here, we implemement a confidence interval that relies on the universally best (in the least-mean-squared sense) estimator of the variance of the sample variance, it being the U-statistic estimator. So, the validity of the approach is mathematically proven.
 
