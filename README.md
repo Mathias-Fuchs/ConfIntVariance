@@ -13,6 +13,7 @@ The difficulty is to estimate that square of the variance. There is a U-statisti
 There are implementations of confidence intervals but they all suffer from a drawback, either
 * they assume normality of the underlying distribution, basically replacing the fourth moment with a known value.
 * or they use heuristics such as bootstrapping etc., which are only approximately valid.
+
 Here, we implemement a confidence interval that relies on the universally best (in the least-mean-squared sense) estimator of the variance of the sample variance, it being the U-statistic estimator. So, the validity of the approach is mathematically proven.
 
 # Reference
