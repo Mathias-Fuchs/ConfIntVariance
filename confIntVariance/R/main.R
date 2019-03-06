@@ -13,7 +13,7 @@ productsOfDisjointTuples <- function(s) {
 
 standardEx <- c(2,2,4,6,2, 6,4,5,4,6)
 
-lsesv <- function(x) {
+lsepvs <- function(x) {
     v <- var(x)
     n <- length(x)
     elSym <- productsOfDisjointTuples(x)
@@ -21,7 +21,7 @@ lsesv <- function(x) {
     (2/n/(n-1) * elSym[2]^2 - 4/n/(n-2) * elSym[1] * elSym[3] + 4/(n-2)/(n-3) * elSym[4])
 }
 
-lsesvExp <- function(x) {
+lsepvsExp <- function(x) {
     stopifnot(length(x)==6)
     p1 <- sum(x)
     p2 <- sum(x^2)
@@ -30,16 +30,26 @@ lsesvExp <- function(x) {
     (1/360)*p1^4 +(-1/30)*p1^2*p2 +(7/120)*p2^2 +(1/18)*p1*p3 +(-1/12)*p4
 }
 
+lsepvs2 <- function(x) {
+    m <- mean(x)
+    c2 <- mean((x - m)^2)
+    c4 <- mean((x - m)^4)
+    n <- length(x)
+                                        # verified
+    (1 + 1/2/(n-1) + 5/2/(n-2) + 9/2/(n-2)/(n-3)) * c2^2 - (1/(n-2) + 3/(n-2)/(n-3)) * c4
+}
+
 varianceOfSampleVariance <- function(x) {
     v <- var(x)
     n <- length(x)
-    p1 <- productsOfDisjointTuples(x)
-    p2 <- productsOfDisjointTuples(x^2)
-    sv <- lsesv(x)
+ #   p1 <- productsOfDisjointTuples(x)
+ #   p2 <- productsOfDisjointTuples(x^2)
                                         # give the same value, up to numerical inaccuracies
-    k1 <- var(x)^2 - p2[2] / choose(n, 2) + 4/n/(n-1)/(n-2)*(p1[3]*sum(x) - 4 * p1[4]) - p1[4]/choose(n, 4)
-    k2 <- var(x)^2 - sv
-    k1
+ #   k1 <- var(x)^2 - p2[2] / choose(n, 2) + 4/n/(n-1)/(n-2)*(p1[3]*sum(x) - 4 * p1[4]) - p1[4]/choose(n, 4)
+ #   k2 <- var(x)^2 - lsepvs(x)
+    k3 <- var(x)^2 - lsepvs2(x)
+#    print(paste(k1, k2, k3))
+    k3
 }
 
 
