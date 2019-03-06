@@ -44,7 +44,7 @@ print(mean(trueValueCovered))
 # Installation
 Download the relase file ConfIntVariance_1.0.tar.gz from 
 
-[https://github.com/Mathias-Fuchs/ConfIntVariance/releases/tag/1.01](https://github.com/Mathias-Fuchs/ConfIntVariance/releases/tag/v1.01)
+[https://github.com/Mathias-Fuchs/ConfIntVariance/releases/tag/1.01](https://github.com/Mathias-Fuchs/ConfIntVariance/releases/tag/1.01)
 
 and install with install.packages("ConfIntVariance_1.0.tar.gz")
 
