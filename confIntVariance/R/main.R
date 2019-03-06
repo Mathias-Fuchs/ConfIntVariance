@@ -37,12 +37,12 @@ varwci <- function(x, conf.level=0.95) {
     n <- length(x)
     stopifnot(n>=4)
     varsv <- varianceOfSampleVariance(x)
+    v <- var(x)
     if (varsv < 0) {
         warning("Sample size too small for estimation of the variance of the sample variance. Please use a larger sample.")
         r <- c(NA, NA)
     } else {
         t <- qt((1+conf.level)/2, df=n-1)
-        v <- var(x)
         r <- c(v-t*sqrt(varsv), v + t*sqrt(varsv))
     }
     attributes(r) <- list(
