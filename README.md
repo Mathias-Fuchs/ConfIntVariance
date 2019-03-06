@@ -42,11 +42,11 @@ print(mean(trueValueCovered))
 ```
 
 # Installation
-Download the relase file ConfIntVariance_1.0.tar.gz from 
+Download the relase file ConfIntVariance_1.01.tar.gz from 
 
-[https://github.com/Mathias-Fuchs/ConfIntVariance/releases/tag/v1.0](https://github.com/Mathias-Fuchs/ConfIntVariance/releases/tag/v1.0)
+[https://github.com/Mathias-Fuchs/ConfIntVariance/releases/tag/1.01](https://github.com/Mathias-Fuchs/ConfIntVariance/releases/tag/1.01)
 
-and install with install.packages("ConfIntVariance_1.0.tar.gz")
+and install with install.packages("ConfIntVariance_1.01.tar.gz")
 
 # Documentation
 In R, call the help with ?varwci
