@@ -23,7 +23,7 @@ varianceOfSampleVariance <- function(x) {
     n <- length(x)
     					# expectation of square minus square of expectation, and analogously for the estimators
     					# the first term estimates its expectation, the second term the square of the expectation of the unbiased sample variance, i.e., the square of the population variance
-    var(x)^2 - lsepvs2(x)
+    var(x)^2 - lsepvs(x)
 }
 
                                         # the confidence interval for the population variance around the usual unbiased sample variance
