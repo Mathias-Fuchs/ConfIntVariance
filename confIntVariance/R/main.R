@@ -54,6 +54,22 @@ varianceOfSampleVariance3 <- function(x) {
 *(n-3)/n/(n-1)) * c4
 }
 
+                                        # yet another formula for the same object, gives the same result
+varianceOfSampleVariance4 <- function(x) {
+    m <- mean(x)
+    c2 <- mean((x - m)^2)
+    c4 <- mean((x - m)^4)
+    n <- length(x)
+    ( 2/(n - 2) + 3/(2* (n - 1)) + 1/(n - 1)^2 - 9/(2 *(n - 3))) * c2^2 + (3/(n - 3) - 2/(n - 2)) * c4
+}
+
+                                        # yet another formula for the same object, gives the same result
+varianceOfSampleVariance5 <- function(x) {
+    n <- length(x)
+    (1/(2 *(n - 2)) + 1/(2* n) - 2/(n - 3)) * var(x)^2  + (3/(n - 3) - 2/(n - 2)) * mean((x-mean(x))^4)
+}
+
+
 
                                         # the confidence interval for the population variance around the usual unbiased sample variance
 					# using as standard deviation the square of the estimated variance of the usual unbiased sample variance, as estimated in the preceding function
@@ -65,8 +81,11 @@ varwci <- function(x, conf.level=0.95) {
     x <- as.vector(x)
     n <- length(x)
     stopifnot(n>=4)
-    varsv <- varianceOfSampleVariance(x)
     v <- var(x)
+                                        # might also take the equivalent slower variants varianceOfSampleVariance"i" where i=1...5
+                                        # varsv <- varianceOfSampleVariance(x) etc.
+                                        # the following inline version is the quickest variant
+    varsv <- (1/(2 *(n - 2)) + 1/(2* n) - 2/(n - 3)) * v^2  + (3/(n - 3) - 2/(n - 2)) * mean((x-mean(x))^4)
     if (varsv < 0) {
         warning("Sample size too small for estimation of the variance of the sample variance. Please use a larger sample.")
         r <- c(NA, NA)
