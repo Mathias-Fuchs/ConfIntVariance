@@ -70,7 +70,6 @@ varianceOfSampleVariance5 <- function(x) {
 }
 
 
-
                                         # the confidence interval for the population variance around the usual unbiased sample variance
 					# using as standard deviation the square of the estimated variance of the usual unbiased sample variance, as estimated in the preceding function
 varwci <- function(x, conf.level=0.95) {
@@ -80,23 +79,29 @@ varwci <- function(x, conf.level=0.95) {
     } else {stopifnot(is.atomic(x))}
     x <- as.vector(x)
     n <- length(x)
-    stopifnot(n>=4)
+    if (n<=4) stop("Error: Sample size needs to be at least 5.")
     v <- var(x)
-                                        # might also take the equivalent slower variants varianceOfSampleVariance"i" where i=1...5
+                                        # Estimate the variance of the sample variance.
+                                        # One might also take the equivalent slower variants varianceOfSampleVariance"i" where i=1...5
                                         # varsv <- varianceOfSampleVariance(x) etc.
-                                        # the following inline version is the quickest variant
+                                        # The following inline version is the quickest variant.
     varsv <- (1/(2 *(n - 2)) + 1/(2* n) - 2/(n - 3)) * v^2  + (3/(n - 3) - 2/(n - 2)) * mean((x-mean(x))^4)
-    if (varsv < 0) {
-        warning("Sample size too small for estimation of the variance of the sample variance. Please use a larger sample.")
-        r <- c(NA, NA)
-    } else {
-        t <- qt((1+conf.level)/2, df=n-1)
-        r <- c(v-t*sqrt(varsv), v + t*sqrt(varsv))
+    if (varsv < 0 || (varsv==0 && length(unique(x)) != 1)) {
+                                        # in very rare cases with a very small sample, this can happen
+        warning("Sample size too small for reliable estimation of the variance of the sample variance. Please use a larger sample. Using biased variance of sample variance estimator.")
+
+                                        # In this extreme case we have to apply a simple bootstrap.
+                                        # This is justified by erring on the conservative side.
+        varsv <- var(sapply(1:1e4, function(i) var(sample(x, n, replace=TRUE))))
     }
+    t <- qt((1+conf.level)/2, df=n-1)
+                                        # Note that we must not divide by sqrt(n) unlike the t-test analogue.
+                                        # Indeed varsv is already o(1/n).
+    r <- c(max(0, v-t*sqrt(varsv)), v + t*sqrt(varsv))
     attributes(r) <- list(
         point.estimator=v,
         conf.level=conf.level,
-        var.SampleVariance=max(0, varsv)
+        var.SampleVariance=varsv
     )
     r
 }
