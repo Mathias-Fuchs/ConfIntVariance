@@ -20,7 +20,9 @@ Here, we implemement a confidence interval that relies on the universally best (
 The underlying U-statistics variance estimator is a special case of the one underlying this publication [http://dx.doi.org/10.1080/15598608.2016.1158675](http://dx.doi.org/10.1080/15598608.2016.1158675), freely available [https://epub.ub.uni-muenchen.de/27656/7/TR.pdf](here).
 
 # Validation
-One can easily verify the validity of the confidence interval by choosing a population aka distribution (for instance, a dice) computing the true variance either theoretically or by taking the sample variance of a very large sample (with n a few hundred millions), drawing many samples (all of the same size or not), and checking that the confidence interval covers the true value in about 95% of all cases. For instance, in the dice example, the true variance is 35 / 12 = 2.91666, and the following code confirms the validity:
+A simulation study which compares the coverage probability of this method with that of the function varTest of the EnvStats package, and with the sem function of the lavaan package, is given in [in this file](https://github.com/Mathias-Fuchs/ConfIntVariance/blob/master/validationStudies.R).
+
+However, one can easily verify the validity of the confidence interval by choosing a population aka distribution (for instance, a dice) computing the true variance either theoretically or by taking the sample variance of a very large sample (with n a few hundred millions), drawing many samples (all of the same size or not), and checking that the confidence interval covers the true value in about 95% of all cases. For instance, in the dice example, the true variance is 35 / 12 = 2.91666, and the following code confirms the validity:
 
 ```R
 require(ConfIntVariance)
@@ -42,11 +44,11 @@ print(mean(trueValueCovered))
 ```
 
 # Installation
-Download the relase file ConfIntVariance_1.0.tar.gz from 
+Download the relase file ConfIntVariance_1.01.tar.gz from 
 
-[https://github.com/Mathias-Fuchs/ConfIntVariance/releases/tag/v1.0](https://github.com/Mathias-Fuchs/ConfIntVariance/releases/tag/v1.0)
+[https://github.com/Mathias-Fuchs/ConfIntVariance/releases/tag/1.01](https://github.com/Mathias-Fuchs/ConfIntVariance/releases/tag/1.01)
 
-and install with install.packages("ConfIntVariance_1.0.tar.gz")
+and install with install.packages("ConfIntVariance_1.01.tar.gz")
 
 # Documentation
 In R, call the help with ?varwci
