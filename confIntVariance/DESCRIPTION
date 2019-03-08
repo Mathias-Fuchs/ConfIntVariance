@@ -1,7 +1,7 @@
 Package: ConfIntVariance
 Type: Package		
 Title: ConfIntVariance	
-Version: 1.01		
+Version: 1.02		
 Date: 2019-03-06
 Author: Mathias Fuchs
 Maintainer: <mathias@mathiasfuchs.de>
