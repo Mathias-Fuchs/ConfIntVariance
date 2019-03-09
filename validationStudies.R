@@ -1,4 +1,35 @@
 require(ConfIntVariance)
+                                        # Confirm that the variance of the sample variance is unbiased even on small samples, for instance tossing a dice with n = 5, known to have:
+                                        # true central fourth moment mu_4 is 707/48=14.72917, or empirically mean(((1:6) - 3.5)^4)
+
+mu4 <- 707/48
+variance <- 35/12
+n <- 20
+                                        # Cramér's formula for the true variance of the sample variance
+                                        # We could of course also estimate that value empirically
+print(trueVarianceOfSampleVariance <- mu4/n - variance^2*(n-3)/n/(n-1))
+                                        # Confirms that the estimator is unbiased: t-test confidence interval contains the true value
+print(t.test(sapply(1:1e3, function(i) attr(varwci(sample(6, n, replace=TRUE)), "var.SampleVariance"))))
+
+
+
+                                        # the same for the normal
+                                        # mu4 = 3
+mu4 <- 3
+variance <- 1
+n <- 20
+print(trueVarianceOfSampleVariance <- mu4/n - variance^2*(n-3)/n/(n-1))
+                                        # confirms that the estimator is unbiased: t-test confidence interval contains the true value
+print(t.test(sapply(1:1e5, function(i) attr(varwci(rnorm(n)), "var.SampleVariance"))))
+
+                                        # and so on
+
+
+
+
+
+
+
 N <- 1e4
 trueValueCovered <- sapply(
     1:N,

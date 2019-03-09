@@ -66,7 +66,8 @@ trueMeanOfDice <- mean(1:6)
 trueVarianceOfDice <- mean((1:6)^2) - trueMeanOfDice^2
 
 ## see package description for more details
-                                        # number of times we draw a sample and compute a confidence interval
+                                        # number of times we draw a
+                                        # sample and compute a confidence interval
 N <- 1e4
 trueValueCovered <- rep(NA, N)
 for (i in 1:N) {
@@ -75,7 +76,8 @@ for (i in 1:N) {
     x <- sample(6, 100, replace=TRUE)
                                         # compute our confidence interval
     ci <- varwci(x)
-                                        # We know that the true variance of the dice is 91/6 - 49/4 = 2.916666...
+                                        # We know that the true variance
+                                        # of the dice is 91/6 - 49/4 = 2.916666...
                                         # did the confidence interval contain the correct value?
     trueValueCovered[i] <- (trueVarianceOfDice > ci[1] && trueVarianceOfDice < ci[2])
 }
