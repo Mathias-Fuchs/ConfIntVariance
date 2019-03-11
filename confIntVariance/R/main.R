@@ -1,7 +1,21 @@
 					# the standard example, not used
 standardEx <- c(2,2,4,6,2,6,4,5,4,6)
 
-					# least squares unbiased estimator
+                                        # least squares unbiased estimator of square of population mean
+                                        # equals mean(x^2) - var(x)
+lsspm <- function(x) mean(x)^2 - var(x) / length(x)
+
+                                        # least squares unbiased estimator of the fourth power of the population mean
+fourthPowerOfMean <- function(x) {
+    n <- length(x)
+    y1 <- mean(x)
+    y2 <- var(x)
+    y3 <- mean((x-mean(x))^3)
+    y4 <- mean((x-mean(x))^4)
+    1 * y1^4 + (-6/n)* y1^2 * y2 + (-1/2/n -3/2/(n-2) + 2/(n-3)) * y2^2 + (-8/(n-1) + 8/(n-2)) * y1 * y3 + (-3/(n-1) + 6/(n-2) -3/(n-3)) * (y4 - 3) - 9/(n-1) + 18/(n-2) - 9/(n-3)
+ }
+
+                                        # least squares unbiased estimator
                                         # of the square of the population variance
 lsepvs <- function(x) {
     m <- mean(x)
